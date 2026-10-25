@@ -4,6 +4,7 @@ def dense_layer_forward(inputs: torch.Tensor, weight_matrix: torch.Tensor, biase
     """
     Returns an output vector in neuron order, preserving input dtype and device.
     """
+    """
     arr = []
     for i in range(len(weight_matrix)):
         a = inputs @ weight_matrix[i] + biases[i]
@@ -13,8 +14,11 @@ def dense_layer_forward(inputs: torch.Tensor, weight_matrix: torch.Tensor, biase
             arr.append(torch.tanh(a))
     if len(arr) == 0:
         return torch.empty(0, dtype=inputs.dtype, device=inputs.device)
-        
     if arr[0].dim() == 0:
         return torch.stack(arr).to(dtype=inputs.dtype, device=inputs.device)
     else:
         return torch.cat(arr, dim=0).to(dtype=inputs.dtype, device=inputs.device)
+    """
+    output = weight_matrix @ inputs + biases
+    output = torch.tanh(output) if nonlinear else output
+    return output
