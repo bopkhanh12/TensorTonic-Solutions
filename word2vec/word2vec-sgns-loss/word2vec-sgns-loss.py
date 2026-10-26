@@ -6,9 +6,6 @@ def sgns_loss(center_vec: torch.Tensor, pos_vec: torch.Tensor,
     """
     Returns the scalar float64 SGNS loss.
     """
-    center_vec = center_vec.double()
-    pos_vec = pos_vec.double()
-    neg_vecs = neg_vecs.double()
     a = torch.sigmoid(torch.dot(center_vec, pos_vec))
     b = 1.0
     for i in range(len(neg_vecs)):
